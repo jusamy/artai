@@ -3,7 +3,8 @@ from keras.layers import Input, Reshape, Dropout, Dense, Flatten, BatchNormaliza
 from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.convolutional import UpSampling2D, Conv2D
 from keras.models import Sequential, Model, load_model
-from keras.optimizers import Adam
+#from keras.optimizers import Adam
+from keras.optimizer_v2 import adam as adam_v2
 import numpy as np
 from PIL import Image
 import os
@@ -96,7 +97,7 @@ def save_images(cnt, noise):
 
 
 image_shape = (IMAGE_SIZE, IMAGE_SIZE, IMAGE_CHANNELS)
-optimizer = Adam(1.5e-4, 0.5)
+optimizer = adam_v2(1.5e-4, 0.5)
 discriminator = build_discriminator(image_shape)
 discriminator.compile(loss='binary_crossentropy',optimizer=optimizer, metrics=['accuracy'])
 generator = build_generator(NOISE_SIZE, IMAGE_CHANNELS)
